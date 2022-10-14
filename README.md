@@ -22,7 +22,7 @@ Power your 1st party data with 4D!
 
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Web+Tracking
 
-Below is an example of the pixel tracking event
+Below is an example of the pixel tracking event which can be added to sites to track page URLs
 
 ```
 var track 		= new Image();
