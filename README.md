@@ -19,7 +19,7 @@ Creating contexts has never been easier!
 Power your 1st party data with 4D!
 
 ## Setting up web tracking
-
+See the link below for the Treasure Data documentation about web tracking
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Web+Tracking
 
 Below is an example of the pixel tracking event which can be added to sites to track page URLs
