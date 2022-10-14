@@ -1,0 +1,21 @@
+timezone: UTC
+
+schedule:
+  minutes_interval>: 30
+
++run_4d_integration_script:
+    py>: script.download
+    _env:
+        TD_MASTER_KEY: ${secret:TD_MASTER_KEY}
+        TD_ACCESS_KEY: ${secret:TD_ACCESS_KEY}
+        FOURD_USERNAME: ${secret:FOURD_USERNAME}
+        FOURD_PASSWORD: ${secret:FOURD_PASSWORD}
+        TD_DB_NAME: ${secret:TD_DB_NAME}
+        TD_TABLE: ${secret:TD_TABLE}
+        TD_COLUMN: ${secret:TD_COLUMN}
+        FOURD_CHANNEL: ${secret:FOURD_CHANNEL}
+        FOURD_REGION: ${secret:FOURD_REGION}
+        TD_STATUS_TABLE: ${secret:TD_STATUS_TABLE}
+        TD_NEW_TABLE: ${secret:TD_NEW_TABLE}
+    docker: 
+        image: "digdag/digdag-python:3.9"
