@@ -83,16 +83,12 @@ This data can then be joined to a user profile table should that already exist.
 SELECT
   context_name,
   COUNT(context_name) AS "frequency"
-
 FROM
   "4d_enriched_table"
-
 GROUP BY
   context_name
-
 ORDER BY
   "frequency" DESC
-
 LIMIT 25;
 ```
 
