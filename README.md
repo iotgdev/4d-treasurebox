@@ -73,7 +73,8 @@ There are multiple required environment variables for the 4D Treasurebox listed 
 8. Click save
 
 ## Using the data
-The 4D enriched data will be returned to the new table identified in the configuration. Each url will be added with multiple related contexts.
+The 4D enriched data will be returned to the new table identified in the configuration. Each URL will be added with multiple related contexts.
+
 ![Example enriched table](resources/enriched_table.png)
 
 The 4D Topics produced can be used in any way desired however here are some example queries illustrating what can be done.
