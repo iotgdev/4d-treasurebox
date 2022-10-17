@@ -79,7 +79,7 @@ The 4D enriched data will be returned to the new table identified in the configu
 
 The 4D Topics produced can be used in any way desired however here are some example queries illustrating what can be done.
 
-1. The first example shows how the new enriched table can be joined to the users (`name`) column in the original table
+1. The first example shows how the new enriched table can be joined to the users (`customer_id`) column in the original table
 
 ```
 SELECT
