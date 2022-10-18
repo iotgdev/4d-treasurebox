@@ -18,7 +18,6 @@ The 4D treasurebox needs URL data captured from media associated to customer pro
 
 See the link below for the Treasure Data documentation about web tracking using the Treasure Data JavaScript SDK and Postback API
 
-
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Web+Tracking
 
 Below is an example of the pixel tracking event which can be added to media to track page URLs
@@ -77,12 +76,13 @@ By default the integration will return all matching contexts from our standard I
 
 
 ## Using the data
-The 4D enriched data will be returned to the new table identified in the configuration. Each url will be added with multiple related contexts.
+The 4D enriched data will be returned to the new table identified in the configuration. Each URL will be added with multiple related contexts.
+
 ![Example enriched table](resources/enriched_table.png)
 
 The 4D Topics produced can be used in any way desired however here are some example queries illustrating what can be done.
 
-1. The first example shows how the new enriched table can be joined to the users (`name`) column in the original table
+1. The first example shows how the new enriched table can be joined to the users (`customer_id`) column in the original table
 
 ```
 SELECT
