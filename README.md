@@ -1,11 +1,10 @@
 # 4D Treasurebox
 
-The 4D Treasurebox is an encapsulated Treasure Data - 4D integration which allows Treasure Data customers to ultimately get 4D to process URLs and then return back to TD with the the top matching contextual Topics associated with them.
+The 4D Treasurebox is an encapsulated Treasure Data - 4D integration which allows Treasure Data customers to leverage 4D’s advanced semantic classification to analyze digital content in media, and return back to Treasure Data the most relevant contextual ‘Topics’ associated with them.
 
-Topics are a new targeting entity that help you build a context faster. Topics are available across verticals like fashion, music, food and even pharmaceuticals.
+Topics are a targeting entity that help you build a context faster. Topics are available across verticals like fashion, music, food, and pharmaceuticals.
 
-With Treasure Boxes via 4D:
-
+Use the 4D Treasurebox to:
 - Enrich your data and drive better outcomes
 
 - Customize & enhance your targeting and brand safety contextual strategies
@@ -14,15 +13,17 @@ With Treasure Boxes via 4D:
 
 - Drive outcomes and boost performance with contextual intelligence used to inform SEO, Social, OOH
 
-Creating contexts has never been easier!
-
-Power your 1st party data with 4D!
-
 ## Web tracking
+The 4D treasurebox needs URL data captured from media associated to customer profiles. To collect this data web tracking in the media will need to be setup via Javascript SDK, pixel tracking, or through the postback API.
+
 See the link below for the Treasure Data documentation about web tracking using the Treasure Data JavaScript SDK and Postback API
+
+
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Web+Tracking
 
-Below is an example of the pixel tracking event which can be added to sites to track page URLs
+Below is an example of the pixel tracking event which can be added to media to track page URLs
+
+<sup><sub>Note: the page_url should be replaced with an appropriate macro.</sup></sub>
 
 ```
 var track 		= new Image();
@@ -41,11 +42,11 @@ Using the Treasure Data Postback API for web tracking, an initial table should b
 
 #### Setting up workflow environment secrets
 
-Follow the instructions in the link below to setup the following environment variables in the Treasure Data console.
+Setup the following environment variables in the Treasure Data console as shown in the link below.
 
 https://docs.treasuredata.com/display/public/PD/Setting+Workflow+Secrets+from+TD+Console
 
-There are multiple required environment variables for the 4D Treasurebox listed below. __These should not start with numbers__
+The required environment variables for the 4D Treasurebox are listed below.
 
 | ENV Variable      | Type                     | Description                                                                                        |
 | :---------------- | :----------------------- | :------------------------------------------------------------------------------------------------- |
@@ -59,17 +60,21 @@ There are multiple required environment variables for the 4D Treasurebox listed 
 | `FOURD_CHANNEL`   | `string`                 | Associated channel in 4D.                                                                          |
 | `FOURD_REGION`    | `string ('eu' or 'usa')` | Selected region for 4D.                                                                            |
 | `TD_STATUS_TABLE` | `string`                 | The name of the status table required to track 4D processing.                                      |
-| `TD_NEW_TABLE`    | `string`                 | New table containing URLs, Context IDs and names.                                                  |
+| `TD_NEW_TABLE`    | `string`                 | New table containing URLs, context IDs and context names.                                                  |
 
 ### Setting up a channel in 4D
 1. Login to 4D
 2. Visit the settings page
 3. Select the channels section
-4. Select the 4D Treasuredata channel
-5. Select `Add New Seat`
-6. Name the seat whatever you’d like
-7. Add a Seat-ID. **This is the identifier you’ll use to request access to data**
+4. Select the 4D Treasure data channel
+5. Select Add New Seat
+6. Give the seat a name
+7. Add a Seat-ID. This should be your Treasure Data account ID
 8. Click save
+
+### Building custom contexts
+By default the integration will return all matching contexts from our standard IAB aligned taxonomy. If you want to create custom contexts outside of the taxonomy you can use the context builder to add them to your account and they will begin to be returned when enriching new data.
+
 
 ## Using the data
 The 4D enriched data will be returned to the new table identified in the configuration. Each url will be added with multiple related contexts.
@@ -95,7 +100,7 @@ ON
 
 This data can then be joined to a user profile table should that already exist.
 
-2. Another way the data can be used is to find the most common 4D Topics
+2. This example shows how to find the most common 4D Topics
 
 ```
 SELECT
@@ -109,5 +114,3 @@ ORDER BY
   "frequency" DESC
 LIMIT 25;
 ```
-
-This can provide a good indicator of the context of sites that users are visiting.

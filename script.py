@@ -83,16 +83,16 @@ def get_or_create_status_table(database_name: str, table_name: str) -> None:
 def receipt(status: str, filename: str) -> None:
     """Inserts upload or last_run record to status table"""
     if status == "processed":
-        delete_old_receipts = get_job_issue(f"DELETE FROM {STATUS_TABLE} WHERE filename='{filename}';")
+        delete_old_receipts = get_job_issue(f"DELETE FROM \"{STATUS_TABLE}\" WHERE filename='{filename}';")
         wait_for_result(delete_old_receipts)
     else:
-        new_receipt = get_job_issue(f"INSERT INTO {STATUS_TABLE}(status, filename) VALUES ('{status}', '{filename}');")
+        new_receipt = get_job_issue(f"INSERT INTO \"{STATUS_TABLE}\"(status, filename) VALUES ('{status}', '{filename}');")
         wait_for_result(new_receipt)
 
 
 def last_upload_time() -> str:
     """Finds the time of the most recent upload"""
-    job_id = get_job_issue(f"SELECT time FROM {STATUS_TABLE} WHERE status='last_run';")
+    job_id = get_job_issue(f"SELECT time FROM \"{STATUS_TABLE}\" WHERE status='last_run';")
     last_upload_time = wait_for_result(job_id)
     return last_upload_time
 
@@ -100,7 +100,7 @@ def last_upload_time() -> str:
 def get_files_to_download() -> List[str]:
     """Gets list of files pending download"""
     try:
-        job_id = get_job_issue(f"SELECT filename FROM {STATUS_TABLE} where status='upload';")
+        job_id = get_job_issue(f"SELECT filename FROM \"{STATUS_TABLE}\" where status='upload';")
         result = wait_for_result(job_id)
         return result.splitlines()
     except TreasureDataException as tde:
@@ -133,7 +133,7 @@ def wait_for_result(job_id: str) -> str:
         if status == "success":
             return query_result(job_id)
         if status != "running":
-            raise TreasureDataException("Query failed")
+            raise TreasureDataException(resp.json())
     raise TreasureDataException("Job not successful after 15 minutes")
 
 
@@ -224,15 +224,15 @@ def get_urls_from_td() -> List[str]:
     """Collects new URLs if there are any"""
     last_upload = last_upload_time()
     if last_upload == "":
-        job_id = get_job_issue(f"SELECT {COLUMN} FROM {TABLE}")
+        job_id = get_job_issue(f"SELECT {COLUMN} FROM \"{TABLE}\"")
     else:
-        job_id = get_job_issue(f"SELECT {COLUMN} FROM {TABLE} WHERE time >= {last_upload}")
+        job_id = get_job_issue(f"SELECT {COLUMN} FROM \"{TABLE}\" WHERE time >= {last_upload}")
     return wait_for_result(job_id).splitlines()
 
 
 def set_last_run_time() -> None:
     """updates status table showing when the upload function was last run"""
-    last_run_job_id = get_job_issue(f"DELETE FROM {STATUS_TABLE} WHERE status='last_run';")
+    last_run_job_id = get_job_issue(f"DELETE FROM \"{STATUS_TABLE}\" WHERE status='last_run';")
     wait_for_result(last_run_job_id)
     receipt("last_run", "")
 
