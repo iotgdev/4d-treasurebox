@@ -170,7 +170,7 @@ def get_signed_url(auth_token: str, operation: Literal["upload", "download"], fi
     url = "https://treasuredata.4d.silverbulletcloud.com/access"
 
     data = {
-        "region": REGION,
+        "region": FOURD_REGION,
         "action": operation,
         "channel": CHANNEL,
         "filenames": [
