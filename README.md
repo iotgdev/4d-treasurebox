@@ -58,6 +58,7 @@ The required environment variables for the 4D Treasurebox are listed below.
 | `TD_COLUMN`       | `string`                 | Column in table containing URLs to be processed.                                                   |
 | `FOURD_CHANNEL`   | `string`                 | Associated channel in 4D.                                                                          |
 | `FOURD_REGION`    | `string ('eu' or 'usa')` | Selected region for 4D.                                                                            |
+| `TD_REGION`    | `string ('EU', 'US', 'KR' or 'JP')` | Treasure Data console region (Europe, US, Korea or Japan)                                  |
 | `TD_STATUS_TABLE` | `string`                 | The name of the status table required to track 4D processing.                                      |
 | `TD_NEW_TABLE`    | `string`                 | New table containing URLs, context IDs and context names.                                                  |
 
