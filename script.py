@@ -23,10 +23,17 @@ DB = os.environ["TD_DB_NAME"]
 TABLE = os.environ["TD_TABLE"]
 COLUMN = os.environ["TD_COLUMN"]
 CHANNEL = os.environ["FOURD_CHANNEL"]
-REGION = os.environ["FOURD_REGION"]
+FOURD_REGION = os.environ["FOURD_REGION"]
+TD_REGION = os.environ["TD_REGION"]
 STATUS_TABLE = os.environ["TD_STATUS_TABLE"]
 NEW_TABLE = os.environ["TD_NEW_TABLE"]
 
+regions = {
+    'US': 'api.treasuredata.com',
+    'EU': 'api.eu01.treasuredata.com',
+    'KR': '	api.ap02.treasuredata.com',
+    'JP': 'api.treasuredata.co.jp'
+}
 
 class TreasureDataException(Exception):
     pass
@@ -44,7 +51,7 @@ def split_list(original_list: List, chunk_length: int) -> Generator[List[Any], N
 
 def create_table(database_name: str, table_name: str) -> None:
     """Creates a new table in a given Treasure Data database"""
-    url = f"https://api.treasuredata.com/v3/table/create/{database_name}/{table_name}"
+    url = f"https://{regions[TD_REGION]}/v3/table/create/{database_name}/{table_name}"
     headers = {"Authorization": f"TD1 {MASTER_KEY}"}
     resp = requests.post(url=url, headers=headers)
     if resp.status_code != 200:
@@ -54,7 +61,7 @@ def create_table(database_name: str, table_name: str) -> None:
 def set_timetable_schema(database_name: str, table_name: str) -> None:
     """Sets the schema of the timetable in Treasure Data"""
     schema = '[["status","string","status"],["filename","string","filename"]]'
-    url = f"https://api.treasuredata.com/v3/table/update/{database_name}/{table_name}?schema={schema}"
+    url = f"https://{regions[TD_REGION]}/v3/table/update/{database_name}/{table_name}?schema={schema}"
     headers = {"Authorization": f"TD1 {MASTER_KEY}"}
     resp = requests.post(url=url, headers=headers)
     if resp.status_code != 200:
@@ -63,7 +70,7 @@ def set_timetable_schema(database_name: str, table_name: str) -> None:
 
 def check_table_exists(table_name: str) -> bool:
     """Checks if a table exists in Treasure Data"""
-    url = f"https://api.treasuredata.com/v3/table/list/{DB}"
+    url = f"https://{regions[TD_REGION]}/v3/table/list/{DB}"
     headers = {"Authorization": f"TD1 {MASTER_KEY}"}
     resp = requests.get(url=url, headers=headers)
     if resp.status_code != 200:
@@ -110,7 +117,7 @@ def get_files_to_download() -> List[str]:
 
 def get_job_issue(query: str) -> str:
     """Gets Treasure Data job id for SQL query"""
-    url = f"https://api.treasuredata.com/v3/job/issue/presto/{DB}"
+    url = f"https://{regions[TD_REGION]}/v3/job/issue/presto/{DB}"
     headers = {"Authorization": f"TD1 {MASTER_KEY}"}
     data = dict(query=query, Priority=0)
     resp = requests.post(url=url, data=data, headers=headers)
@@ -121,7 +128,7 @@ def get_job_issue(query: str) -> str:
 
 def wait_for_result(job_id: str) -> str:
     """Tracks Treasure Data SQL query status and returns result"""
-    url = f"https://api.treasuredata.com/v3/job/show/{job_id}"
+    url = f"https://{regions[TD_REGION]}/v3/job/show/{job_id}"
     headers = {"Authorization": f"TD1 {MASTER_KEY}"}
     for i in range(180):
         time.sleep(5)
@@ -139,7 +146,7 @@ def wait_for_result(job_id: str) -> str:
 
 def query_result(job_id: str) -> str:
     """Returns result of Treasure Data SQL query"""
-    url = f"https://api.treasuredata.com/v3/job/result/{job_id}"
+    url = f"https://{regions[TD_REGION]}/v3/job/result/{job_id}"
     headers = {"Authorization": f"TD1 {MASTER_KEY}"}
     resp = requests.get(url=url, headers=headers)
     if resp.status_code != 200:
