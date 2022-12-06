@@ -86,8 +86,8 @@ The 4D Topics produced can be used in any way desired however here are some exam
 
 ```
 SELECT
-    test2.name,
-    context_matches.url,
+    customer_data.customer_id,
+    customer_data.url,
     context_matches.context_id,
     context_matches.context_name
 FROM
