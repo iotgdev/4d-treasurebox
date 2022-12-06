@@ -31,7 +31,7 @@ NEW_TABLE = os.environ["TD_NEW_TABLE"]
 regions = {
     'US': 'api.treasuredata.com',
     'EU': 'api.eu01.treasuredata.com',
-    'KR': '	api.ap02.treasuredata.com',
+    'KR': 'api.ap02.treasuredata.com',
     'JP': 'api.treasuredata.co.jp'
 }
 
